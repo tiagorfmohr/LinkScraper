@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raspador de Links</title>
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Estilo do corpo */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e9ecef;
+            color: #343a40;
+            padding: 40px;
+        }
+
+        /* Título principal */
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #343a40;
+            font-size: 2em;
+        }
+
+        /* Container principal */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Caixa de entrada de URL */
+        #url {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            transition: border-color 0.3s;
+        }
+
+        #url:focus {
+            border-color: #80bdff;
+            outline: none;
+        }
+
+        /* Botões */
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.02);
+        }
+
+        /* Container para os botões no topo */
+        .top-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Resultados */
+        #results {
+            margin-top: 20px;
+        }
+
+        #results ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #results li {
+            background-color: #f8f9fa;
+            margin: 5px 0;
+            padding: 12px;
+            border-radius: 6px;
+            word-wrap: break-word;
+            border: 1px solid #dee2e6;
+        }
+
+        /* Estilo de alerta */
+        .alert {
+            color: green;
+            font-weight: bold;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Raspador de Links</h1>
+    <div class="container">
+        <div class="top-buttons">
+            <button onclick="copyAllLinks()">Copiar Todos os Links</button>
+        </div>
+        
+        <input type="text" id="url" placeholder="Digite a URL">
+        <button onclick="scrapeLinks()">Raspar Links</button>
+        
+        <div id="results"></div>
+    </div>
+
+    <script>
+        function scrapeLinks() {
+            const url = document.getElementById('url').value;
+            fetch(`/scrape?url=${url}`)
+                .then(response => response.json())
+                .then(data => {
+                    const resultsDiv = document.getElementById('results');
+                    resultsDiv.innerHTML = '';
+                    if (data.error) {
+                        resultsDiv.textContent = data.error;
+                    } else {
+                        const linksList = document.createElement('ul');
+                        data.links.forEach(link => {
+                            const listItem = document.createElement('li');
+                            listItem.textContent = link;
+                            linksList.appendChild(listItem);
+                        });
+                        resultsDiv.appendChild(linksList);
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                    const resultsDiv = document.getElementById('results');
+                    resultsDiv.textContent = 'Ocorreu um erro ao raspar os links.';
+                });
+        }
+
+        function copyAllLinks() {
+            const links = document.querySelectorAll('#results li');
+            const linkText = Array.from(links).map(link => link.textContent).join('\n');
+            navigator.clipboard.writeText(linkText)
+                .then(() => {
+                    alert('Links copiados para a área de transferência!');
+                })
+                .catch(err => {
+                    console.error('Erro ao copiar:', err);
+                });
+        }
+    </script>
+    
+</body>
+</html>
