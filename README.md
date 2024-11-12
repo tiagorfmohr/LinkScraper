@@ -13,4 +13,4 @@ pip install flask requests beautifulsoup4
 ## Autores
 
 - [@AleFeliphe](https://github.com/AleFeliphe)
-- [@tiagorfm](https://github.com/tiagorfmohr)
+- [@TiagoRFM](https://github.com/tiagorfmohr)
