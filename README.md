@@ -5,7 +5,7 @@ Uma ferramenta destinada a coletar links reais para fornecer a rede neural dos p
 ## NEURAL-TRAINER
 [NEURAL-TRAINER](https://github.com/AleFeliphe/NEURAL-TRAINER)
 
-## HISHING-TESTER
+## PHISHING-TESTER
 [PHISHING-TESTER](https://github.com/tiagorfmohr/PHISHING-TESTER)
 
 ### Biblioteca necessária 
