@@ -2,8 +2,10 @@
 
 Uma ferramenta destinada a coletar links reais para fornecer a rede neural dos projetos:
 
+## NEURAL-TRAINER
 [NEURAL-TRAINER](https://github.com/AleFeliphe/NEURAL-TRAINER)
 
+## HISHING-TESTER
 [PHISHING-TESTER](https://github.com/tiagorfmohr/PHISHING-TESTER)
 
 ### Biblioteca necessária 
