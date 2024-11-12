@@ -6,7 +6,9 @@ Uma ferramenta destinada a coletar links reais para fornecer a rede neural do pr
 
 ### Biblioteca necessária 
 
-`pip install flask requests beautifulsoup4`
+```bash
+pip install flask requests beautifulsoup4
+```
 
 ## Autores
 
